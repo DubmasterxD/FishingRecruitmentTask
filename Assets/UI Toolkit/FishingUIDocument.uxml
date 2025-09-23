@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/FishingUIStyle.uss?fileID=7433441132597879392&amp;guid=c5f502d128b98a144a1bedd2e2f1b7b4&amp;type=3#FishingUIStyle" />
+    <FishingUI />
+</ui:UXML>

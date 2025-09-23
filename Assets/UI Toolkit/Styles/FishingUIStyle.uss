@@ -1,0 +1,47 @@
+.fishing-ui__container {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.fish-showcase {
+    width: 500px;
+    height: 500px;
+    justify-content: center;
+    align-items: center;
+}
+
+.fish-showcase__background {
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: auto;
+    right: auto;
+    bottom: auto;
+}
+
+.fish-showcase__icon {
+    background-image: url("project://database/Assets/Sprites/FishingDrop.psd?fileID=-1326801322&guid=48edaf8cf998e7b448fb2fe0269e39eb&type=3#NormalFish");
+    width: 300px;
+    height: 300px;
+}
+
+.fish-showcase__name {
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    width: 100%;
+    -unity-text-align: upper-center;
+}
+
+.fish-showcase__info {
+    font-size: 40px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-align: upper-center;
+    width: 100%;
+    white-space: nowrap;
+}

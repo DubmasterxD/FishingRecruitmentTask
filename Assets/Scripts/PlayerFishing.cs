@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class PlayerFishing : MonoBehaviour
     Camera _camera;
     bool _isCharging;
     float _currentCharge;
+
+    public event Action<FishingDrop> OnFishCaught;
 
     private void Awake()
     {
@@ -94,7 +97,9 @@ public class PlayerFishing : MonoBehaviour
     {
         if(_bobber != null && _bobber.IsFishOnHook())
         {
-            Debug.Log("Caught a fish!");
+            _bobber.PrepareMinigame();
+            FishingDrop fishCaught = _bobber.GetFishOnHook();
+            OnFishCaught?.Invoke(fishCaught);
         }
         else
         {

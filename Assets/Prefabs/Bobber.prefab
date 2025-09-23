@@ -48,6 +48,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waitingTimeRange: {x: 7, y: 15}
   _maxHookedTime: 2.5
+  DropsList:
+  - {fileID: 11400000, guid: 05c4a43138eee0c42b66fc380077795b, type: 2}
+  - {fileID: 11400000, guid: 04e822cadfb939d4baa642be5d162679, type: 2}
+  - {fileID: 11400000, guid: 8d032f074fa298b4bbfc95062ccca7ed, type: 2}
+  DropChances:
+  - 3
+  - 5
+  - 1
 --- !u!95 &7657719311213147954
 Animator:
   serializedVersion: 7

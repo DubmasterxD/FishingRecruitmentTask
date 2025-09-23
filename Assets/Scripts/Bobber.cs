@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 enum FishingState
@@ -15,6 +16,11 @@ public class Bobber : MonoBehaviour
     [SerializeField] Vector2 _waitingTimeRange;
     [SerializeField] float _maxHookedTime;
 
+    [SerializeField][HideInInspector] public List<FishingDrop> DropsList = new List<FishingDrop>();
+    [SerializeField][HideInInspector] public List<float> DropChances = new List<float>();
+    Dictionary<FishingDrop, float> _drops;
+    FishingDrop _fishOnHook;
+
     Animator _animator;
     bool _casted;
 
@@ -28,8 +34,32 @@ public class Bobber : MonoBehaviour
         if(_animator == null)
             _animator = gameObject.AddComponent<Animator>();
 
+        _drops = new Dictionary<FishingDrop, float>();
+        for (int i = 0; i < DropsList.Count; i++)
+        {
+            if (DropsList[i] == null || DropChances[i] <= 0)
+                continue;
+            _drops.Add(DropsList[i], DropChances[i]);
+        }
+
+        _fishOnHook = null;
         _casted = false;
         _state = FishingState.None;
+    }
+
+    private void OnValidate()
+    {
+        if (DropsList.Count < DropChances.Count)
+        {
+            DropChances.RemoveRange(DropsList.Count, DropChances.Count - DropsList.Count);
+        }
+        else if (DropsList.Count > DropChances.Count)
+        {
+            for (int i = DropChances.Count; i < DropsList.Count; i++)
+            {
+                DropChances.Add(0f);
+            }
+        }
     }
 
     private void Update()
@@ -96,6 +126,38 @@ public class Bobber : MonoBehaviour
     public bool IsFishOnHook()
     {
         return _state == FishingState.FishOnHook;
+    }
+
+    public void PrepareMinigame()
+    {
+        _fishOnHook = GetRandomDrop();
+    }
+
+    public FishingDrop GetRandomDrop()
+    {
+        float total = 0f;
+        foreach (var chance in _drops.Values)
+        {
+            total += chance;
+        }
+        float randomPoint = Random.value * total;
+        foreach (var pair in _drops)
+        {
+            if (randomPoint < pair.Value)
+            {
+                return pair.Key;
+            }
+            else
+            {
+                randomPoint -= pair.Value;
+            }
+        }
+        return null;
+    }
+
+    public FishingDrop GetFishOnHook()
+    {
+        return _fishOnHook;
     }
 
     public IEnumerator ReelIn()
