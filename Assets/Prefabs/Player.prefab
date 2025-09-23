@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3801020901217575827}
   - component: {fileID: 1844926020588832031}
+  - component: {fileID: 797600853075719891}
   - component: {fileID: 1916672405601155043}
   m_Layer: 0
   m_Name: Player
@@ -50,6 +51,24 @@ MonoBehaviour:
   _speed: 7
   _lookXSensitivity: 7
   _lookYSensitivity: 7
+--- !u!114 &797600853075719891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407123342741780971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120c9e5308563aa4ca039d0fdac8e58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fishingTag: FishingSpot
+  _maxCastRange: 20
+  _maxCastHeight: 5
+  _chargingSpeed: 3
+  _maxCharge: 5
+  _bobberPrefab: {fileID: 4352336756645603159, guid: d99e97af23ad88146ad2e9ca295c3b8a, type: 3}
 --- !u!143 &1916672405601155043
 CharacterController:
   m_ObjectHideFlags: 0
@@ -87,7 +106,7 @@ GameObject:
   - component: {fileID: 6872845163769232184}
   - component: {fileID: 2703057273276714048}
   - component: {fileID: 1155155701121591038}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

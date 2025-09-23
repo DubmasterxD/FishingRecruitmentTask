@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa42d60da24c2e84aa5e77caece3e427, type: 3}
+  m_Name: OldShoe
+  m_EditorClassIdentifier: 
+  <DisplayName>k__BackingField: Old Shoe
+  <ItemIcon>k__BackingField: {fileID: 464143687, guid: 48edaf8cf998e7b448fb2fe0269e39eb, type: 3}
+  <CatchInfo>k__BackingField: It's just an old shoe.

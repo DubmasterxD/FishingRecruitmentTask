@@ -50,7 +50,7 @@ public class InputManager : MonoBehaviour
             OnLook?.Invoke(lookInput);
     }
 
-    void ToggleMovement(bool isEnabled)
+    public void ToggleMovement(bool isEnabled)
     {
         if (isEnabled)
             _moving.Enable();
@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour
             _moving.Disable();
     }
 
-    void ToggleFishing(bool isEnabled)
+    public void ToggleFishing(bool isEnabled)
     {
         if (isEnabled)
             _fishing.Enable();
