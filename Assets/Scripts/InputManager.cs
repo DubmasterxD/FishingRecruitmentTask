@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance;
 
     PlayerInput _playerInput;
+    PlayerInput.LookingActions _looking;
     PlayerInput.MovingActions _moving;
     PlayerInput.FishingActions _fishing;
 
@@ -27,6 +28,7 @@ public class InputManager : MonoBehaviour
         Instance = this;
 
         _playerInput = new PlayerInput();
+        _looking = _playerInput.Looking;
         _moving = _playerInput.Moving;
         _fishing = _playerInput.Fishing;
 
@@ -35,6 +37,7 @@ public class InputManager : MonoBehaviour
         _fishing.Hook.performed += ctx => OnHookFish?.Invoke();
         _fishing.Reel.performed += ctx => OnReelIn?.Invoke();
 
+        ToggleLooking(true);
         ToggleMovement(true);
         ToggleFishing(false);
     }
@@ -45,9 +48,17 @@ public class InputManager : MonoBehaviour
         if(moveInput != Vector2.zero)
             OnMove?.Invoke(moveInput);
 
-        Vector2 lookInput = _moving.Look.ReadValue<Vector2>();
+        Vector2 lookInput = _looking.Look.ReadValue<Vector2>();
         if (lookInput != Vector2.zero)
             OnLook?.Invoke(lookInput);
+    }
+
+    public void ToggleLooking(bool isEnabled)
+    {
+        if (isEnabled)
+            _looking.Enable();
+        else
+            _looking.Disable();
     }
 
     public void ToggleMovement(bool isEnabled)

@@ -9,9 +9,12 @@ public class PlayerMovement : MonoBehaviour
     CharacterController _controller;
     Camera _camera;
 
+    bool _isLookingLocked;
+    Vector3 _lockDirection;
+    float _verticalRotation;
+
     Vector3 _velocity;
     const float GRAVITY = -9.8f;
-    float _verticalRotation;
 
     private void Awake()
     {
@@ -20,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
             _controller = gameObject.AddComponent<CharacterController>();
 
         _camera = Camera.main;
+        _isLookingLocked = false;
         _velocity = Vector3.zero;
         _verticalRotation = 0f;
     }
@@ -47,9 +51,30 @@ public class PlayerMovement : MonoBehaviour
     void Look(Vector2 input)
     {
         _verticalRotation -= input.y * Time.deltaTime * _lookYSensitivity;
-        _verticalRotation = Mathf.Clamp(_verticalRotation, -89f, 89f);
+        _verticalRotation = Mathf.Clamp(_verticalRotation, -20f, 30f);
         _camera.transform.localRotation = Quaternion.Euler(_verticalRotation, 0, 0);
 
-        transform.Rotate(Vector3.up * input.x * Time.deltaTime * _lookXSensitivity);
+        Vector3 horizontalRotation = Vector3.up * input.x * Time.deltaTime * _lookXSensitivity;
+        transform.Rotate(horizontalRotation);
+
+        if(_isLookingLocked)
+        {
+            float lockedAngle = Vector3.Angle(transform.forward, _lockDirection);
+            if(lockedAngle > 25f)
+            {
+                transform.Rotate(-horizontalRotation);
+            }
+        }
+    }
+
+    public void LockLookDirection()
+    {
+        _isLookingLocked = true;
+        _lockDirection = transform.forward;
+    }
+
+    public void UnlockLookDirection()
+    {
+        _isLookingLocked = false;
     }
 }

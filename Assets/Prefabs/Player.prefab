@@ -66,8 +66,9 @@ MonoBehaviour:
   _fishingTag: FishingSpot
   _maxCastRange: 20
   _maxCastHeight: 5
-  _chargingSpeed: 3
+  _chargingSpeed: 5
   _maxCharge: 5
+  _fishingRod: {fileID: 3464486989458052673}
   _bobberPrefab: {fileID: 4352336756645603159, guid: d99e97af23ad88146ad2e9ca295c3b8a, type: 3}
 --- !u!143 &1916672405601155043
 CharacterController:
@@ -93,7 +94,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5682542481321603478
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +126,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 864505051801983405}
   m_Father: {fileID: 3801020901217575827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6872845163769232184
@@ -204,6 +206,38 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6165411764190666438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864505051801983405}
+  m_Layer: 2
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &864505051801983405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165411764190666438}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.46491924, y: 0, z: 0, w: 0.8853531}
+  m_LocalPosition: {x: 0.565, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6491385135174108615}
+  m_Father: {fileID: 5749861216453548574}
+  m_LocalEulerAnglesHint: {x: 55.41, y: 0, z: 0}
 --- !u!1 &6170981081236058017
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,3 +330,76 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6170981081236058017}
   m_Enabled: 1
+--- !u!1001 &5474152764516527821
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 864505051801983405}
+    m_Modifications:
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043828318775393013, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+      propertyPath: m_Name
+      value: FishingRod
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+--- !u!114 &3464486989458052673 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8929596137185671308, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+  m_PrefabInstance: {fileID: 5474152764516527821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf40771e3b6cd74c8ee1a6e513511d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &6491385135174108615 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1291988339359427338, guid: eb9da9cdff0138f48804a4cebc74d017, type: 3}
+  m_PrefabInstance: {fileID: 5474152764516527821}
+  m_PrefabAsset: {fileID: 0}

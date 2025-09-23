@@ -16,15 +16,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "b2a45277-d716-4315-a8ff-094e4d36e8fb",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "ChargeBobber",
                     "type": "Button",
                     "id": "5c79e407-743c-4ac3-a8f4-9d6396aece00",
@@ -101,17 +92,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d0c286e4-4181-4b60-908f-054fe3232f6b",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "22c6c5bd-c83f-4f9a-a2d9-55d7c069700e",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press",
@@ -177,6 +157,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Looking",
+            "id": "09c6ec77-31ca-4273-9cd9-59f63d590d80",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "8de9128d-f1f9-465b-95ad-2258ce2cd93d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4778e1ab-2aea-41f4-a9f5-d4da9e764576",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

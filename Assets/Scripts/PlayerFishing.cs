@@ -10,9 +10,11 @@ public class PlayerFishing : MonoBehaviour
     [SerializeField][Min(0)] float _chargingSpeed = 10f;
     [SerializeField][Min(0)] float _maxCharge = 5f;
 
+    [SerializeField] FishingRod _fishingRod;
     [SerializeField] Bobber _bobberPrefab;
     Bobber _bobber;
 
+    PlayerMovement _movement;
     Camera _camera;
     bool _isCharging;
     float _currentCharge;
@@ -22,15 +24,18 @@ public class PlayerFishing : MonoBehaviour
     private void Awake()
     {
         _camera = Camera.main;
+        _movement = GetComponent<PlayerMovement>();
         _isCharging = false;
         _currentCharge = 0;
     }
 
     private void Start()
     {
+        _bobber = Instantiate(_bobberPrefab);
+        _fishingRod.AttachBobber(_bobber);
+
         InputManager.Instance.OnBeginCharge += ()=> _isCharging = true;
-        InputManager.Instance.OnReleaseCharge += TryCasting;
-        InputManager.Instance.OnReelIn += () => StartCoroutine(ReelIn());
+        InputManager.Instance.OnReleaseCharge += ReleaseCharge;
         InputManager.Instance.OnHookFish += TryCatch;
     }
 
@@ -48,12 +53,27 @@ public class PlayerFishing : MonoBehaviour
             {
                 _currentCharge = _maxCharge;
             }
+            _fishingRod.Charge(_currentCharge / _maxCharge);
         }
     }
 
-    void TryCasting()
+    void ReleaseCharge()
     {
         _isCharging = false;
+        _fishingRod.StopCharging();
+        StartCoroutine(TryCasting());
+    }
+
+    IEnumerator TryCasting()
+    {
+        InputManager.Instance.ToggleMovement(false);
+        InputManager.Instance.ToggleLooking(false);
+        while (_fishingRod.IsCasting())
+        {
+            yield return null;
+        }
+        InputManager.Instance.ToggleLooking(true);
+
         float castRange = Mathf.Lerp(0, _maxCastRange, _currentCharge / _maxCharge);
         _currentCharge = 0;
 
@@ -62,8 +82,9 @@ public class PlayerFishing : MonoBehaviour
         if(Physics.Raycast(ray, out RaycastHit obstacleHit, castRange))
         {
             //Fail cast
+            InputManager.Instance.ToggleMovement(true);
             Debug.Log("Failed to cast, something is in the way: " + obstacleHit.collider.name);
-            return;
+            yield break;
         }
 
         Vector3 castPosition = _camera.transform.position + castDirection * castRange;
@@ -75,19 +96,17 @@ public class PlayerFishing : MonoBehaviour
         else
         {
             //Fail cast
+            InputManager.Instance.ToggleMovement(true);
             Debug.Log("Failed to cast, no water found");
-            return;
         }
     }
 
     IEnumerator Cast(Vector3 position)
     {
         InputManager.Instance.ToggleMovement(false);
+        if (_movement != null)
+            _movement.LockLookDirection();
 
-        if (_bobber == null)
-        {
-            _bobber = Instantiate(_bobberPrefab, position, Quaternion.identity);
-        }
         yield return _bobber.Cast(position);
 
         InputManager.Instance.ToggleFishing(true);
@@ -97,7 +116,7 @@ public class PlayerFishing : MonoBehaviour
     {
         if(_bobber != null && _bobber.IsFishOnHook())
         {
-            _bobber.PrepareMinigame();
+            _bobber.PrepareMinigame(); //potential difficulties
             FishingDrop fishCaught = _bobber.GetFishOnHook();
             OnFishCaught?.Invoke(fishCaught);
         }
@@ -111,7 +130,13 @@ public class PlayerFishing : MonoBehaviour
     IEnumerator ReelIn()
     {
         InputManager.Instance.ToggleFishing(false);
-        yield return _bobber.ReelIn();
+        _bobber.ReelIn();
+        _fishingRod.onBobberRequest += () => _fishingRod.AttachBobber(_bobber);
+        yield return _fishingRod.ReelIn();
+        _fishingRod.onBobberRequest -= () => _fishingRod.AttachBobber(_bobber);
+
+        if (_movement != null)
+            _movement.UnlockLookDirection();
         InputManager.Instance.ToggleMovement(true);
     }
 

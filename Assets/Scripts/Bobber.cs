@@ -13,6 +13,7 @@ enum FishingState
 
 public class Bobber : MonoBehaviour
 {
+    [SerializeField] Transform _topPoint;
     [SerializeField] Vector2 _waitingTimeRange;
     [SerializeField] float _maxHookedTime;
 
@@ -92,9 +93,11 @@ public class Bobber : MonoBehaviour
 
     public IEnumerator Cast(Vector3 position)
     {
-        gameObject.SetActive(true);
+        transform.SetParent(null);
         transform.position = position;
-        _animator.Play("Cast");
+        transform.rotation = Quaternion.identity;
+        //DOTween throw
+        _animator.SetTrigger("Cast");
         while (!_casted)
             yield return null;
 
@@ -160,18 +163,19 @@ public class Bobber : MonoBehaviour
         return _fishOnHook;
     }
 
-    public IEnumerator ReelIn()
+    public void ReelIn()
     {
         _state = FishingState.ReelIn;
         _animator.SetTrigger("Finish");
-        while(_state != FishingState.None)
-            yield return null;
-
-        gameObject.SetActive(false);
     }
 
     public void Reeled()
     {
         _state = FishingState.None;
+    }
+
+    public Vector3 GetTopPoint()
+    {
+        return _topPoint.position;
     }
 }
