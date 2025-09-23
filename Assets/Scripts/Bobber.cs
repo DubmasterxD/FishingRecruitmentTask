@@ -131,9 +131,10 @@ public class Bobber : MonoBehaviour
         return _state == FishingState.FishOnHook;
     }
 
-    public void PrepareMinigame()
+    public FishingDrop PrepareMinigame()
     {
         _fishOnHook = GetRandomDrop();
+        return _fishOnHook;
     }
 
     public FishingDrop GetRandomDrop()

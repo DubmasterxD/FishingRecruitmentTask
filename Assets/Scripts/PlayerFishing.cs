@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerFishing : MonoBehaviour
@@ -36,7 +37,7 @@ public class PlayerFishing : MonoBehaviour
 
         InputManager.Instance.OnBeginCharge += ()=> _isCharging = true;
         InputManager.Instance.OnReleaseCharge += ReleaseCharge;
-        InputManager.Instance.OnHookFish += TryCatch;
+        InputManager.Instance.OnHookFish += ()=> StartCoroutine(TryCatch());
     }
 
     private void Update()
@@ -112,13 +113,25 @@ public class PlayerFishing : MonoBehaviour
         InputManager.Instance.ToggleFishing(true);
     }
 
-    void TryCatch()
+    IEnumerator TryCatch()
     {
         if(_bobber != null && _bobber.IsFishOnHook())
         {
-            _bobber.PrepareMinigame(); //potential difficulties
-            FishingDrop fishCaught = _bobber.GetFishOnHook();
-            OnFishCaught?.Invoke(fishCaught);
+            FishingDrop fishCaught = _bobber.PrepareMinigame();
+            MinigameController minigameController = FindAnyObjectByType<MinigameController>();
+            minigameController.BeginMinigame(fishCaught); //potential difficulties
+            while (minigameController.IsMinigameActive)
+            {
+                yield return null;
+            }
+            if (minigameController.WasLastSuccess)
+            {
+                OnFishCaught?.Invoke(fishCaught);
+            }
+            else
+            {
+                Debug.Log("Fish got away!");
+            }
         }
         else
         {

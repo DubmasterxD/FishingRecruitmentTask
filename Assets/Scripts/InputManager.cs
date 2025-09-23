@@ -35,11 +35,13 @@ public class InputManager : MonoBehaviour
         _moving.ChargeBobber.performed += ctx => OnBeginCharge?.Invoke();
         _moving.CastBobber.performed += ctx => OnReleaseCharge?.Invoke();
         _fishing.Hook.performed += ctx => OnHookFish?.Invoke();
-        _fishing.Reel.performed += ctx => OnReelIn?.Invoke();
 
         ToggleLooking(true);
         ToggleMovement(true);
         ToggleFishing(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -51,6 +53,10 @@ public class InputManager : MonoBehaviour
         Vector2 lookInput = _looking.Look.ReadValue<Vector2>();
         if (lookInput != Vector2.zero)
             OnLook?.Invoke(lookInput);
+
+        float reelInput = _fishing.Reel.ReadValue<float>();
+        if(reelInput == 1)
+            OnReelIn?.Invoke();
     }
 
     public void ToggleLooking(bool isEnabled)

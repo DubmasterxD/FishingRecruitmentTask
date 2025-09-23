@@ -4,7 +4,6 @@ using UnityEngine.UIElements;
 public class FishingUIController : MonoBehaviour
 {
     [SerializeField] UIDocument _rootDocument;
-    [SerializeField] bool _useUIToolkit = true;
     [SerializeField] float _showCatchDuration;
 
     FishingUIToolkit _fishingUI;
@@ -40,16 +39,9 @@ public class FishingUIController : MonoBehaviour
 
     public void ShowFish(FishingDrop fish)
     {
-        if(_useUIToolkit)
+        if (_fishingUI != null)
         {
-            if (_fishingUI != null)
-            {
-                _fishingUI.ShowFish(fish);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Legacy UI not implemented yet.");
+            _fishingUI.ShowFish(fish);
         }
         _isShowing = true;
         _timer = 0f;
@@ -57,17 +49,34 @@ public class FishingUIController : MonoBehaviour
 
     void HideFish()
     {
-        if (_useUIToolkit)
+        if (_fishingUI != null)
         {
-            if (_fishingUI != null)
-            {
-                _fishingUI.HideFish();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Legacy UI not implemented yet.");
+            _fishingUI.HideFish();
         }
         _isShowing = false;
+    }
+
+    public void ShowMinigame()
+    {
+        if (_fishingUI != null)
+        {
+            _fishingUI.ShowMinigame();
+        }
+    }
+
+    public void HideMinigame()
+    {
+        if (_fishingUI != null)
+        {
+            _fishingUI.HideMinigame();
+        }
+    }
+
+    public void UpdateMinigame(float time, float pressure)
+    {
+        if (_fishingUI != null)
+        {
+            _fishingUI.UpdateMinigame(time, pressure);
+        }
     }
 }
